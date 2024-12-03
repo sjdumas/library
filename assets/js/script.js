@@ -55,6 +55,18 @@ const displayBooks = () => {
 		const bookCard = document.createElement("div");
 		bookCard.classList.add("card");
 
+		const removeBookIcon = document.createElement("span");
+		removeBookIcon.classList.add(
+			"material-symbols-outlined",
+			"remove-book-icon"
+		);
+		removeBookIcon.textContent = "close";
+		removeBookIcon.addEventListener("click", () => {
+			myLibrary.splice(index, 1); // Remove book by index
+			saveLibrary();
+			displayBooks();
+		});
+
 		const bookTitle = document.createElement("h3");
 		bookTitle.textContent = book.title;
 
@@ -64,32 +76,39 @@ const displayBooks = () => {
 		const bookPages = document.createElement("p");
 		bookPages.textContent = `Pages: ${book.pages}`;
 
-		const bookRead = document.createElement("p");
-		const bookReadStatus = book.isRead ? "Read" : "Not read";
-		bookRead.textContent = `Status: ${bookReadStatus}`;
+		const bookReadStatus = document.createElement("h4");
+		bookReadStatus.textContent = "Status";
 
-		const toggleReadBookButton = document.createElement("button");
-		toggleReadBookButton.textContent = "Change Status";
-		toggleReadBookButton.addEventListener("click", () => {
-			book.toggleReadStatus();
-			saveLibrary();
-			displayBooks();
+		const statusDropdown = document.createElement("select");
+		const statuses = [
+			"Not Yet Read",
+			"Want to Read",
+			"Currently Reading",
+			"Read",
+			"Did Not Finish",
+		];
+		statuses.forEach((status) => {
+			const option = document.createElement("option");
+			option.value = status;
+			option.textContent = status;
+			if (status === (book.isRead ? "Read" : "Not Yet Read")) {
+				option.selected = true;
+			}
+			statusDropdown.appendChild(option);
 		});
 
-		const removeBookButton = document.createElement("button");
-		removeBookButton.textContent = "Remove Book";
-		removeBookButton.addEventListener("click", () => {
-			myLibrary.splice(index, 1); // Remove book by index
+		statusDropdown.addEventListener("change", (e) => {
+			const selectedStatus = e.target.value;
+			book.isRead = selectedStatus === "Read";
 			saveLibrary();
-			displayBooks();
 		});
 
+		bookReadStatus.appendChild(statusDropdown);
+		bookCard.appendChild(removeBookIcon);
 		bookCard.appendChild(bookTitle);
 		bookCard.appendChild(bookAuthor);
 		bookCard.appendChild(bookPages);
-		bookCard.appendChild(bookRead);
-		bookCard.appendChild(toggleReadBookButton);
-		bookCard.appendChild(removeBookButton);
+		bookCard.appendChild(bookReadStatus);
 		bookCardsContainer.appendChild(bookCard);
 	});
 };

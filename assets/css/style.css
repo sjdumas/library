@@ -24,6 +24,7 @@
 	--error-bg-color: #ffebee;
 	--simply-white: #ffffff;
 	--basic-black: #000000;
+	--off-black: #222222;
 	--footer-bg-color: #fcf9fa;
 	--all-border-radii: 5px;
 }
@@ -65,6 +66,10 @@ h2 {
 
 h3 {
 	font-size: 1.3rem;
+}
+
+h4 {
+	font-size: 1.1rem;
 }
 
 p {
@@ -188,10 +193,15 @@ button:hover {
 	padding: 2rem;
 	border-radius: var(--all-border-radii);
 	width: 350px;
+	position: relative;
 }
 
 .card > h3 {
 	margin-bottom: 1rem;
+}
+
+.card > h4{
+	margin: 1rem 0;
 }
 
 .card button {
@@ -207,6 +217,29 @@ button:hover {
 
 .card button:hover {
 	background-color: var(--card-button-bg-hover-color);
+}
+
+.card select {
+    /* width: 100%; */
+    padding: 8px;
+    margin: 1rem 0 0 .5rem;
+    font-size: 1rem;
+    border: 1px solid var(--input-border-color);
+    border-radius: var(--all-border-radii);
+    background-color: var(--input-bg-color);
+}
+
+.remove-book-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--basic-black);
+}
+
+.remove-book-icon:hover {
+    color: var(--off-black);
 }
 
 .modal {
