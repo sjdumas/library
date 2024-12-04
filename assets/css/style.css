@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 @import url("../css/all.min.css");
+@import url("../css/satoshi.css");
 
 :root {
-	--body-font: "Inter", sans-serif;
+	--body-font: "Satoshi-Variable", "Inter", sans-serif;
 	--body-bg-color: #ffffff;
 	--body-heading-color: #0f172a;
 	--body-font-color: #334155;
 	--link-color: #334155;
 	--link-hover-color: #2563eb;
+	--header-bg-color: #fcf9fa;
 	--card-bg-color: rgba(220, 220, 220, 0.1);
 	--card-border-color: #e5e7eb;
 	--card-button-bg-color: #0f172a;
@@ -25,6 +27,7 @@
 	--simply-white: #ffffff;
 	--basic-black: #000000;
 	--off-black: #222222;
+	--grey: #999999;
 	--footer-bg-color: #fcf9fa;
 	--all-border-radii: 5px;
 }
@@ -51,7 +54,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-weight: 600;
+	font-family: var(--body-font);
 	color: var(--body-heading-color);
 	line-height: 1.4;
 }
@@ -65,11 +68,15 @@ h2 {
 }
 
 h3 {
-	font-size: 1.3rem;
+	font-size: 1.45rem;
 }
 
 h4 {
 	font-size: 1.1rem;
+}
+
+h5 {
+	font-size: 1rem;
 }
 
 p {
@@ -92,10 +99,12 @@ a > i {
 
 ::placeholder {
 	color: var(--placeholder-font-color);
+	font-size: 1rem;
 }
 
 label {
-	font-weight: 500;
+	font-size: inherit;
+	font-weight: 600;
 	display: block;
 	margin: 10px 0 5px;
 }
@@ -109,7 +118,8 @@ input {
 	background-color: var(--input-bg-color);
 }
 
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
 	outline: 0;
 	background-color: var(--input-bg-focus-color);
 }
@@ -140,6 +150,8 @@ button:hover {
 }
 
 .container {
+	max-width: 1200px;
+	margin: 0 auto;
 	padding: 2.5rem;
 }
 
@@ -165,16 +177,32 @@ button:hover {
 	gap: 25px;
 }
 
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 1.5rem 2.5rem;
+	width: 100%;
+	background-color: var(--header-bg-color);
+}
+
+.header h1 {
+	font-size: 1.75rem;
+}
+
+.header h2 {
+	font-size: 1.25rem;
+}
+
 .user-info {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-	gap: 10px;
+	gap: 15px;
 }
 
 .user-avatar {
-	width: 80px;
-	height: 80px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 }
 
@@ -197,11 +225,19 @@ button:hover {
 }
 
 .card > h3 {
+	color: var(--body-font-color);
 	margin-bottom: 1rem;
 }
 
-.card > h4{
-	margin: 1rem 0;
+.card > h4 {
+	margin: 1rem 0 0;
+	font-weight: 500;
+	color: var(--body-font-color);
+}
+
+.card > h5 {
+	color: var(--body-font-color);
+	font-weight: 500;
 }
 
 .card button {
@@ -220,26 +256,37 @@ button:hover {
 }
 
 .card select {
-    /* width: 100%; */
-    padding: 8px;
-    margin: 1rem 0 0 .5rem;
-    font-size: 1rem;
-    border: 1px solid var(--input-border-color);
-    border-radius: var(--all-border-radii);
-    background-color: var(--input-bg-color);
+	width: 100%;
+	padding: 8px;
+	font-size: 0.95rem;
+	border: 1px solid var(--input-border-color);
+	border-radius: var(--all-border-radii);
+	background-color: var(--input-bg-color);
+}
+
+.status-container {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-top: 1rem;
+}
+
+.status-container .book-ribbon {
+	font-size: 1.5rem;
+	color: var(--button-bg-color);
 }
 
 .remove-book-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--basic-black);
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	font-size: 1.5rem;
+	color: var(--grey);
 }
 
 .remove-book-icon:hover {
-    color: var(--off-black);
+	color: var(--off-black);
 }
 
 .modal {
@@ -269,8 +316,23 @@ button:hover {
 	padding: 0.5rem;
 }
 
+.new-book-form > h2 {
+	padding-bottom: 1rem;
+}
+
+.new-book-form select {
+	width: 100%;
+	padding: 12px 8px;
+	font-size: 1rem;
+	border: 1px solid var(--input-border-color);
+	border-radius: var(--all-border-radii);
+	background-color: var(--input-bg-color);
+	margin-bottom: 10px;
+}
+
 .new-book-form button {
 	width: 100%;
+	margin-top: 20px;
 }
 
 #new-book-button {
@@ -280,7 +342,7 @@ button:hover {
 	justify-content: center;
 }
 
-.material-symbols-outlined {
+#new-book-button > .material-symbols-outlined {
 	font-size: 1.2rem;
 	font-weight: 600;
 	vertical-align: middle;
@@ -304,7 +366,8 @@ footer {
 }
 
 footer h4 {
-	font-weight: 300;
+	font-family: var(--body-font);
+	font-weight: 400;
 	font-size: inherit;
 }
 
@@ -318,4 +381,118 @@ footer h4 {
 	display: flex;
 	align-items: center;
 	gap: 15px;
+}
+
+/* Responsive mode for tablets and smartphones */
+@media screen and (max-width: 1024px) {
+	.book-cards {
+		grid-template-columns: 1fr 1fr;
+		gap: 35px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		padding: 1.5rem;
+	}
+
+	.library-books h1 {
+		font-size: 2rem;
+		text-align: center;
+	}
+
+	.header {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 1rem;
+	}
+
+	.user-info {
+		flex-direction: column;
+	}
+
+	.header h1 {
+		font-size: 2rem;
+	}
+
+	.user-avatar {
+		width: 60px;
+		height: 60px;
+	}
+
+	.card {
+		width: 100%;
+		padding: 1.5rem;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.library-books h1 {
+		font-size: 1.5rem;
+	}
+
+	.user-info {
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.user-avatar {
+		width: 50px;
+		height: 50px;
+	}
+
+	.book-cards {
+		grid-template-columns: 1fr;
+		gap: 30px;
+		width: 100%;
+	}
+
+	.card {
+		width: 100%;
+		padding: 1rem;
+	}
+
+	.card h3 {
+		font-size: 1rem;
+	}
+
+	.status-container {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 5px;
+	}
+
+	.status-container .book-ribbon {
+		font-size: 1.2rem;
+	}
+
+	.status-container select {
+		width: 100%;
+	}
+
+	#new-book-button {
+		font-size: 0.9rem;
+		padding: 10px;
+	}
+
+	#new-book-button .material-symbols-outlined {
+		font-size: 1rem;
+	}
+
+	.footer-content {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	@media screen and (max-width: 320px) {
+		.card {
+			padding: 0.8rem;
+		}
+
+		.status-container .book-ribbon {
+			font-size: 1rem;
+		}
+	}
 }

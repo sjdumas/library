@@ -70,13 +70,20 @@ const displayBooks = () => {
 		const bookTitle = document.createElement("h3");
 		bookTitle.textContent = book.title;
 
-		const bookAuthor = document.createElement("p");
-		bookAuthor.textContent = `Author: ${book.author}`;
+		const bookAuthor = document.createElement("h4");
+		bookAuthor.textContent = `Written by: ${book.author}`;
 
 		const bookPages = document.createElement("p");
-		bookPages.textContent = `Pages: ${book.pages}`;
+		bookPages.textContent = `${book.pages} pages`;
 
-		const bookReadStatus = document.createElement("h4");
+		const statusContainer = document.createElement("div");
+		statusContainer.classList.add("status-container");
+
+		const bookRibbon = document.createElement("span");
+		bookRibbon.classList.add("material-symbols-outlined", "book-ribbon");
+		bookRibbon.textContent = "book_ribbon";
+
+		const bookReadStatus = document.createElement("h5");
 		bookReadStatus.textContent = "Status";
 
 		const statusDropdown = document.createElement("select");
@@ -87,6 +94,7 @@ const displayBooks = () => {
 			"Read",
 			"Did Not Finish",
 		];
+
 		statuses.forEach((status) => {
 			const option = document.createElement("option");
 			option.value = status;
@@ -103,12 +111,15 @@ const displayBooks = () => {
 			saveLibrary();
 		});
 
-		bookReadStatus.appendChild(statusDropdown);
+		statusContainer.appendChild(bookRibbon);
+		statusContainer.appendChild(bookReadStatus);
+		statusContainer.appendChild(statusDropdown);
+
 		bookCard.appendChild(removeBookIcon);
 		bookCard.appendChild(bookTitle);
 		bookCard.appendChild(bookAuthor);
 		bookCard.appendChild(bookPages);
-		bookCard.appendChild(bookReadStatus);
+		bookCard.appendChild(statusContainer);
 		bookCardsContainer.appendChild(bookCard);
 	});
 };
@@ -124,6 +135,9 @@ const addNewBook = () => {
 
 	const userInput = document.createElement("div");
 	userInput.classList.add("new-book-form");
+
+	const addNewBookLabel = document.createElement("h2");
+	addNewBookLabel.textContent = "Add a New Book to the Library";
 
 	const titleLabel = document.createElement("label");
 	titleLabel.textContent = "Title";
@@ -147,35 +161,26 @@ const addNewBook = () => {
 	pagesInput.setAttribute("required", true);
 
 	const isReadLabel = document.createElement("label");
-	isReadLabel.textContent = "Have you read the book?";
+	isReadLabel.textContent = "Status";
 
-	const radioContainer = document.createElement("div");
-	radioContainer.classList.add("radio-container");
+	const statusDropdown = document.createElement("select");
+	statusDropdown.setAttribute("name", "isRead");
+	statusDropdown.setAttribute("required", true);
 
-	const isReadYes = document.createElement("input");
-	isReadYes.setAttribute("type", "radio");
-	isReadYes.setAttribute("name", "isRead");
-	isReadYes.setAttribute("value", "true");
-	isReadYes.setAttribute("id", "isReadYes");
+	const statuses = [
+		"Not Yet Read",
+		"Want to Read",
+		"Currently Reading",
+		"Read",
+		"Did Not Finish",
+	];
 
-	const isReadYesLabel = document.createElement("label");
-	isReadYesLabel.setAttribute("for", "isReadYes");
-	isReadYesLabel.textContent = "Yes";
-
-	const isReadNo = document.createElement("input");
-	isReadNo.setAttribute("type", "radio");
-	isReadNo.setAttribute("name", "isRead");
-	isReadNo.setAttribute("value", "false");
-	isReadNo.setAttribute("id", "isReadNo");
-
-	const isReadNoLabel = document.createElement("label");
-	isReadNoLabel.setAttribute("for", "isReadNo");
-	isReadNoLabel.textContent = "No";
-
-	radioContainer.appendChild(isReadYes);
-	radioContainer.appendChild(isReadYesLabel);
-	radioContainer.appendChild(isReadNo);
-	radioContainer.appendChild(isReadNoLabel);
+	statuses.forEach((status) => {
+		const option = document.createElement("option");
+		option.value = status;
+		option.textContent = status;
+		statusDropdown.appendChild(option);
+	});
 
 	const submitBookBtn = document.createElement("button");
 	submitBookBtn.textContent = "Add Book";
@@ -185,6 +190,7 @@ const addNewBook = () => {
 	errorMessage.classList.add("error-message");
 	errorMessage.style.display = "none";
 
+	userInput.appendChild(addNewBookLabel);
 	userInput.appendChild(titleLabel);
 	userInput.appendChild(titleInput);
 	userInput.appendChild(authorLabel);
@@ -192,7 +198,7 @@ const addNewBook = () => {
 	userInput.appendChild(pagesLabel);
 	userInput.appendChild(pagesInput);
 	userInput.appendChild(isReadLabel);
-	userInput.appendChild(radioContainer);
+	userInput.appendChild(statusDropdown);
 	userInput.appendChild(submitBookBtn);
 	userInput.appendChild(errorMessage);
 
@@ -218,24 +224,22 @@ const addNewBook = () => {
 		const title = titleInput.value;
 		const author = authorInput.value;
 		const pages = pagesInput.value;
-		const isRead = document.querySelector(
-			'input[name="isRead"]:checked'
-		)?.value;
+		const isRead = statusDropdown.value;
 
-		if (!title || !author || !pages || isRead === undefined) {
+		if (!title || !author || !pages || !isRead) {
 			errorMessage.textContent = "All fields are required.";
 			errorMessage.style.display = "block";
 			return;
 		}
 
-		addBookToLibrary(title, author, parseInt(pages), isRead === "true");
+		addBookToLibrary(title, author, parseInt(pages), isRead);
 		saveLibrary();
 		displayBooks();
 
 		titleInput.value = "";
 		authorInput.value = "";
 		pagesInput.value = "";
-		document.querySelector('input[name="isRead"]:checked').checked = false;
+		statusDropdown.value = statuses[0];
 		errorMessage.style.display = "none";
 
 		closeModal();
