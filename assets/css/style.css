@@ -10,7 +10,8 @@
 	--body-font-color: #334155;
 	--link-color: #334155;
 	--link-hover-color: #2563eb;
-	--header-bg-color: #fcf9fa;
+	--header-border-color: #e5e7eb;
+	--header-bg-color: #e6e6e6;
 	--card-bg-color: rgba(220, 220, 220, 0.1);
 	--card-border-color: #e5e7eb;
 	--card-button-bg-color: #0f172a;
@@ -28,7 +29,7 @@
 	--basic-black: #000000;
 	--off-black: #222222;
 	--grey: #999999;
-	--footer-bg-color: #fcf9fa;
+	--footer-bg-color: #f8fafc;
 	--all-border-radii: 5px;
 }
 
@@ -172,26 +173,33 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	align-items: center;
+	align-content: center;
 	flex-wrap: wrap;
 	gap: 25px;
+}
+
+.library-books > h1 {
+	font-size: 1.8rem;
+	font-weight: 500;
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 1.5rem 2.5rem;
+	padding: 1rem 2.5rem;
 	width: 100%;
-	background-color: var(--header-bg-color);
+	border-bottom: 1px solid var(--header-border-color);
 }
 
 .header h1 {
-	font-size: 1.75rem;
+	font-size: 1.5rem;
+	font-weight: 500;
 }
 
 .header h2 {
-	font-size: 1.25rem;
+	font-size: 1.15rem;
+	font-weight: 500;
 }
 
 .user-info {
@@ -227,11 +235,12 @@ button:hover {
 .card > h3 {
 	color: var(--body-font-color);
 	margin-bottom: 1rem;
+	font-weight: 500;
 }
 
 .card > h4 {
 	margin: 1rem 0 0;
-	font-weight: 500;
+	font-weight: 400;
 	color: var(--body-font-color);
 }
 
@@ -397,7 +406,6 @@ footer h4 {
 	}
 
 	.library-books h1 {
-		font-size: 2rem;
 		text-align: center;
 	}
 
@@ -413,7 +421,7 @@ footer h4 {
 	}
 
 	.header h1 {
-		font-size: 2rem;
+		font-size: 1.25rem;
 	}
 
 	.user-avatar {

@@ -42,6 +42,9 @@ const loadLibrary = () => {
 		addBookToLibrary("The Princess Bride", "William Goldman", 429, false);
 		addBookToLibrary("2001: A Space Odyssey", "Arthur C. Clark", 297, true);
 		addBookToLibrary("Foundation", "Issac Asimov", 244, false);
+		addBookToLibrary("A Game of Thrones", "George R.R. Martin", 819, false);
+		addBookToLibrary("Red Mars", "Kim Stanley Robinson", 572, true);
+		addBookToLibrary("Frankenstein", "Mary Shelley", 260, true);
 		saveLibrary(); // Save initial books to localStorage
 	}
 };
