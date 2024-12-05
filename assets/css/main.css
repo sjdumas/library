@@ -1,0 +1,100 @@
+@import url("../css/all.min.css");
+@import url("../css/satoshi.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
+
+:root {
+	--body-font: "Satoshi-Variable", "Inter", sans-serif;
+	--body-bg-color: #ffffff;
+	--body-font-color: #334155;
+	--simply-white: #ffffff;
+	--basic-black: #000000;
+	--off-black: #222222;
+	--error-color: #f44336;
+	--error-bg-color: #ffebee;
+	--sidebar-bg-color: #f8fafc;
+	--all-border-radii: 5px;
+    --bottom-padding: 1rem;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	font-family: var(--body-font);
+	font-weight: 400;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--body-font-color);
+	background-color: var(--body-bg-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--body-font);
+	font-weight: 700;
+	color: var(--body-heading-color);
+    line-height: 1.75rem;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+}
+
+.sidebar-container {
+	padding: 2.5rem;
+}
+
+.main-container {
+    padding: 2.5rem 4.5rem;
+}
+
+.content {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: auto;
+}
+
+.sidebar {
+	background-color: var(--sidebar-bg-color);
+}
+
+.main-section {
+	background-color: var(--simply-white);
+}
+
+.user-info {
+    padding: 2rem 0;
+}
+
+.user-info > h2 {
+    text-align: center;
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.description > h1 {
+    padding-bottom: var(--bottom-padding);
+}
+
+.lead {
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--body-font-color);
+}
