@@ -1,24 +1,25 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 @import url("../css/all.min.css");
 @import url("../css/satoshi.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined");
 
 :root {
 	--body-font: "Satoshi-Variable", "Inter", sans-serif;
-	--body-bg-color: #ffffff;
+	--body-bg-color: var(--simply-white);
 	--body-heading-color: #0f172a;
-	--body-font-color: #334155;
-	--link-color: #334155;
-	--link-hover-color: #2563eb;
+	--body-font-color: var(--dark-color);
+	--primary-color: #2563eb;
+	--primary-hover-color: #3b82f6;
+	--link-color: var(--dark-color);
+	--link-hover-color: var(--primary-hover-color);
 	--header-border-color: #e5e7eb;
 	--header-bg-color: #e6e6e6;
 	--card-bg-color: rgba(220, 220, 220, 0.1);
 	--card-border-color: #e5e7eb;
 	--card-button-bg-color: #0f172a;
-	--card-button-bg-hover-color: #334155;
-	--button-font-color: #ffffff;
-	--button-bg-color: #2563eb;
-	--button-hover-bg-color: #3b82f6;
+	--card-button-bg-hover-color: var(--dark-color);
+	--button-font-color: var(--simply-white);
+	--button-hover-bg-color: var(--primary-hover-color);
 	--placeholder-font-color: #9ca3af;
 	--input-border-color: #cecece;
 	--input-bg-color: #fafafa;
@@ -26,10 +27,10 @@
 	--error-color: #f44336;
 	--error-bg-color: #ffebee;
 	--simply-white: #ffffff;
-	--basic-black: #000000;
+	--dark-color: #334155;
 	--off-black: #222222;
 	--grey: #999999;
-	--footer-bg-color: #f8fafc;
+	--footer-bg-color: #1c2434;
 	--all-border-radii: 5px;
 }
 
@@ -69,7 +70,7 @@ h2 {
 }
 
 h3 {
-	font-size: 1.45rem;
+	font-size: 1.4rem;
 }
 
 h4 {
@@ -139,10 +140,10 @@ button {
 	cursor: pointer;
 	font-weight: 500;
 	font-size: 1rem;
-	padding: 15px 25px;
+	padding: 12px 20px;
 	border: 0;
-	color: var(--button-font-color);
-	background-color: var(--button-bg-color);
+	color: var(--simply-white);
+	background-color: var(--primary-color);
 	border-radius: var(--all-border-radii);
 }
 
@@ -202,16 +203,10 @@ button:hover {
 	font-weight: 500;
 }
 
-.user-info {
+.book-info {
 	display: flex;
 	align-items: center;
 	gap: 15px;
-}
-
-.user-avatar {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
 }
 
 .book-cards {
@@ -266,11 +261,13 @@ button:hover {
 
 .card select {
 	width: 100%;
-	padding: 8px;
+	padding: 10px 15px;
 	font-size: 0.95rem;
 	border: 1px solid var(--input-border-color);
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
+	appearance: none;
+	cursor: pointer;
 }
 
 .status-container {
@@ -280,17 +277,23 @@ button:hover {
 	margin-top: 1rem;
 }
 
-.status-container .book-ribbon {
-	font-size: 1.5rem;
-	color: var(--button-bg-color);
+.status-container::after {
+	display: inline-block;
+	position: absolute;
+	pointer-events: none;
+	color: inherit;
+	right: 45px;
+	font-family: "Material Symbols Outlined";
+	font-size: 1.1rem;
+	content: "\e5cf";
 }
 
 .remove-book-icon {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 15px;
+	right: 15px;
 	cursor: pointer;
-	font-size: 1.5rem;
+	font-size: 1.1rem;
 	color: var(--grey);
 }
 
@@ -302,13 +305,16 @@ button:hover {
 	position: fixed;
 	top: 50%;
 	left: 50%;
-	width: 400px;
+	width: 90%;
+	max-width: 600px;
 	transform: translate(-50%, -50%);
 	background-color: var(--simply-white);
 	padding: 1rem;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	border-radius: var(--all-border-radii);
 	z-index: 1001;
+	overflow-y: auto; /* Add scroll for overflow content */
+	max-height: 90%; /* Prevent modal from exceeding the viewport */
 }
 
 .overlay {
@@ -337,6 +343,20 @@ button:hover {
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
+	appearance: none;
+	cursor: pointer;
+}
+
+.new-book-status-container::after {
+	display: inline-block;
+	position: absolute;
+	pointer-events: none;
+	color: inherit;
+	bottom: 105px;
+	right: 33px;
+	font-family: "Material Symbols Outlined";
+	font-size: 1.1rem;
+	content: "\e5cf";
 }
 
 .new-book-form button {
@@ -378,6 +398,7 @@ footer h4 {
 	font-family: var(--body-font);
 	font-weight: 400;
 	font-size: inherit;
+	color: var(--simply-white);
 }
 
 .footer-content {
@@ -390,6 +411,14 @@ footer h4 {
 	display: flex;
 	align-items: center;
 	gap: 15px;
+}
+
+.icons a {
+	color: var(--simply-white);
+}
+
+.icons a:hover {
+	color: var(--link-hover-color);
 }
 
 /* Responsive mode for tablets and smartphones */
@@ -416,7 +445,7 @@ footer h4 {
 		gap: 1rem;
 	}
 
-	.user-info {
+	.book-info {
 		flex-direction: column;
 	}
 
@@ -424,14 +453,14 @@ footer h4 {
 		font-size: 1.25rem;
 	}
 
-	.user-avatar {
-		width: 60px;
-		height: 60px;
-	}
-
 	.card {
 		width: 100%;
 		padding: 1.5rem;
+	}
+
+	.modal {
+		width: 80%;
+		padding: 1rem;
 	}
 }
 
@@ -440,15 +469,10 @@ footer h4 {
 		font-size: 1.5rem;
 	}
 
-	.user-info {
+	.book-info {
 		flex-direction: column;
 		align-items: center;
 		gap: 10px;
-	}
-
-	.user-avatar {
-		width: 50px;
-		height: 50px;
 	}
 
 	.book-cards {
@@ -472,10 +496,6 @@ footer h4 {
 		gap: 5px;
 	}
 
-	.status-container .book-ribbon {
-		font-size: 1.2rem;
-	}
-
 	.status-container select {
 		width: 100%;
 	}
@@ -494,13 +514,30 @@ footer h4 {
 		gap: 20px;
 	}
 
+	.modal {
+		width: 95%;
+		padding: 1rem;
+	}
+
+	.modal h2 {
+		font-size: 1.2rem;
+		text-align: center;
+	}
+
+	.modal input,
+	.modal textarea,
+	.modal select {
+		font-size: 0.9rem;
+	}
+
+	.modal button {
+		font-size: 1rem;
+		padding: 10px 20px;
+	}
+
 	@media screen and (max-width: 320px) {
 		.card {
 			padding: 0.8rem;
-		}
-
-		.status-container .book-ribbon {
-			font-size: 1rem;
 		}
 	}
 }

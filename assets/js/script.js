@@ -1,22 +1,17 @@
 const myLibrary = [];
 
-function Book(title, author, pages, isRead) {
+function Book(title, author, pages, status) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
-	this.isRead = isRead;
+	this.status = status || "Want to Read"; // Default to "Want to Read" if no status is provided
 	this.info = function () {
-		const readStatus = this.isRead ? "Read" : "Not read";
-		return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatus}`;
+		return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`;
 	};
 }
 
-Book.prototype.toggleReadStatus = function () {
-	this.isRead = !this.isRead;
-};
-
-const addBookToLibrary = (title, author, pages, isRead) => {
-	const newBook = new Book(title, author, pages, isRead);
+const addBookToLibrary = (title, author, pages, status) => {
+	const newBook = new Book(title, author, pages, status);
 	myLibrary.push(newBook);
 };
 
@@ -31,20 +26,65 @@ const loadLibrary = () => {
 		myLibrary.length = 0; // Clear the current book library
 		books.forEach((book) => {
 			myLibrary.push(
-				new Book(book.title, book.author, book.pages, book.isRead)
+				new Book(book.title, book.author, book.pages, book.status)
 			);
 		});
 	} else {
-		// Add initial books only if library is empty
-		addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
-		addBookToLibrary("1984", "George Orwell", 328, true);
-		addBookToLibrary("The War of the Worlds", "H.G. Wells", 192, true);
-		addBookToLibrary("The Princess Bride", "William Goldman", 429, false);
-		addBookToLibrary("2001: A Space Odyssey", "Arthur C. Clark", 297, true);
-		addBookToLibrary("Foundation", "Issac Asimov", 244, false);
-		addBookToLibrary("A Game of Thrones", "George R.R. Martin", 819, false);
-		addBookToLibrary("Red Mars", "Kim Stanley Robinson", 572, true);
-		addBookToLibrary("Frankenstein", "Mary Shelley", 260, true);
+		// Add all initial books
+		addBookToLibrary(
+			"The Hobbit", 
+			"J.R.R. Tolkien", 
+			295, 
+			"Want to Read"
+		);
+		addBookToLibrary(
+			"1984", 
+			"George Orwell", 
+			328, 
+			"Read"
+		);
+		addBookToLibrary(
+			"The War of the Worlds", 
+			"H.G. Wells", 
+			192, 
+			"Read"
+		);
+		addBookToLibrary(
+			"The Princess Bride",
+			"William Goldman",
+			429,
+			"Want to Read"
+		);
+		addBookToLibrary(
+			"2001: A Space Odyssey",
+			"Arthur C. Clarke",
+			297,
+			"Read"
+		);
+		addBookToLibrary(
+			"Foundation",
+			"Isaac Asimov",
+			244,
+			"Currently Reading"
+		);
+		addBookToLibrary(
+			"A Game of Thrones",
+			"George R.R. Martin",
+			819,
+			"Want to Read"
+		);
+		addBookToLibrary(
+			"Red Mars",
+			"Kim Stanley Robinson",
+			572,
+			"Currently Reading"
+		);
+		addBookToLibrary(
+			"Frankenstein", 
+			"Mary Shelley", 
+			260, 
+			"Read"
+		);
 		saveLibrary(); // Save initial books to localStorage
 	}
 };
@@ -65,7 +105,7 @@ const displayBooks = () => {
 		);
 		removeBookIcon.textContent = "close";
 		removeBookIcon.addEventListener("click", () => {
-			myLibrary.splice(index, 1); // Remove book by index
+			myLibrary.splice(index, 1);
 			saveLibrary();
 			displayBooks();
 		});
@@ -74,7 +114,7 @@ const displayBooks = () => {
 		bookTitle.textContent = book.title;
 
 		const bookAuthor = document.createElement("h4");
-		bookAuthor.textContent = `Written by: ${book.author}`;
+		bookAuthor.textContent = `By ${book.author}`;
 
 		const bookPages = document.createElement("p");
 		bookPages.textContent = `${book.pages} pages`;
@@ -82,40 +122,25 @@ const displayBooks = () => {
 		const statusContainer = document.createElement("div");
 		statusContainer.classList.add("status-container");
 
-		const bookRibbon = document.createElement("span");
-		bookRibbon.classList.add("material-symbols-outlined", "book-ribbon");
-		bookRibbon.textContent = "book_ribbon";
-
-		const bookReadStatus = document.createElement("h5");
-		bookReadStatus.textContent = "Status";
-
 		const statusDropdown = document.createElement("select");
-		const statuses = [
-			"Not Yet Read",
-			"Want to Read",
-			"Currently Reading",
-			"Read",
-			"Did Not Finish",
-		];
+		const statuses = ["Want to Read", "Currently Reading", "Read"];
 
 		statuses.forEach((status) => {
 			const option = document.createElement("option");
 			option.value = status;
 			option.textContent = status;
-			if (status === (book.isRead ? "Read" : "Not Yet Read")) {
+			if (status === book.status) {
 				option.selected = true;
 			}
 			statusDropdown.appendChild(option);
 		});
 
 		statusDropdown.addEventListener("change", (e) => {
-			const selectedStatus = e.target.value;
-			book.isRead = selectedStatus === "Read";
+			book.status = e.target.value;
 			saveLibrary();
+			displayBooks(); // Refresh the display
 		});
 
-		statusContainer.appendChild(bookRibbon);
-		statusContainer.appendChild(bookReadStatus);
 		statusContainer.appendChild(statusDropdown);
 
 		bookCard.appendChild(removeBookIcon);
@@ -140,7 +165,7 @@ const addNewBook = () => {
 	userInput.classList.add("new-book-form");
 
 	const addNewBookLabel = document.createElement("h2");
-	addNewBookLabel.textContent = "Add a New Book to the Library";
+	addNewBookLabel.textContent = "Add New Book";
 
 	const titleLabel = document.createElement("label");
 	titleLabel.textContent = "Title";
@@ -166,24 +191,22 @@ const addNewBook = () => {
 	const isReadLabel = document.createElement("label");
 	isReadLabel.textContent = "Status";
 
+	const newBookStatusContainer = document.createElement("div");
+	newBookStatusContainer.classList.add("new-book-status-container");
+
 	const statusDropdown = document.createElement("select");
-	statusDropdown.setAttribute("name", "isRead");
+	statusDropdown.setAttribute("name", "status");
 	statusDropdown.setAttribute("required", true);
 
-	const statuses = [
-		"Not Yet Read",
-		"Want to Read",
-		"Currently Reading",
-		"Read",
-		"Did Not Finish",
-	];
-
+	const statuses = ["Want to Read", "Currently Reading", "Read"];
 	statuses.forEach((status) => {
 		const option = document.createElement("option");
 		option.value = status;
 		option.textContent = status;
 		statusDropdown.appendChild(option);
 	});
+
+	newBookStatusContainer.appendChild(statusDropdown);
 
 	const submitBookBtn = document.createElement("button");
 	submitBookBtn.textContent = "Add Book";
@@ -201,7 +224,7 @@ const addNewBook = () => {
 	userInput.appendChild(pagesLabel);
 	userInput.appendChild(pagesInput);
 	userInput.appendChild(isReadLabel);
-	userInput.appendChild(statusDropdown);
+	userInput.appendChild(newBookStatusContainer);
 	userInput.appendChild(submitBookBtn);
 	userInput.appendChild(errorMessage);
 
@@ -227,15 +250,16 @@ const addNewBook = () => {
 		const title = titleInput.value;
 		const author = authorInput.value;
 		const pages = pagesInput.value;
-		const isRead = statusDropdown.value;
+		const selectedStatus = statusDropdown.value;
 
-		if (!title || !author || !pages || !isRead) {
+		if (!title || !author || !pages || !selectedStatus) {
 			errorMessage.textContent = "All fields are required.";
 			errorMessage.style.display = "block";
 			return;
 		}
 
-		addBookToLibrary(title, author, parseInt(pages), isRead);
+		addBookToLibrary(title, author, parseInt(pages), selectedStatus);
+
 		saveLibrary();
 		displayBooks();
 
