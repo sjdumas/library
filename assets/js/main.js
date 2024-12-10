@@ -1,10 +1,10 @@
 const myLibrary = [];
 
-function Book(title, author, pages, isRead, description) {
+function Book(title, author, pages, currentStatus, description) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
-	this.isRead = isRead;
+	this.currentStatus = currentStatus;
 	this.description = description;
 	this.info = function () {
 		const readStatus = this.isRead ? "Read" : "Not read";
@@ -16,8 +16,8 @@ Book.prototype.toggleReadStatus = function () {
 	this.isRead = !this.isRead;
 };
 
-const addBookToLibrary = (title, author, pages, isRead, description) => {
-	const newBook = new Book(title, author, pages, isRead, description);
+const addBookToLibrary = (title, author, pages, currentStatus, description) => {
+	const newBook = new Book(title, author, pages, currentStatus, description);
 	myLibrary.unshift(newBook);
 };
 
@@ -30,13 +30,13 @@ const loadLibrary = () => {
 	if (libraryData) {
 		const books = JSON.parse(libraryData);
 		myLibrary.length = 0; // Clear the current book library
-		books.forEach((book) => {
+		books.forEach((book) => { // Load in reverse to show newest first
 			myLibrary.push(
 				new Book(
 					book.title,
 					book.author,
 					book.pages,
-					book.isRead,
+					book.currentStatus,
 					book.description
 				)
 			);
@@ -45,69 +45,16 @@ const loadLibrary = () => {
 		// Add initial books only if library is empty
 		const lorem = "Lorem ipsum odor amet, consectetuer adipiscing elit. Pretium enim duis consectetur, ridiculus aenean sapien etiam tempor. Ac ultrices vestibulum nec nostra sed efficitur pulvinar.";
 
-		addBookToLibrary(
-			"The Hobbit", 
-			"J.R.R. Tolkien", 
-			295, 
-			false, 
-			lorem
-		);
-		addBookToLibrary(
-			"1984", 
-			"George Orwell", 
-			328, 
-			true, 
-			lorem
-		);
-		addBookToLibrary(
-			"The War of the Worlds",
-			"H.G. Wells",
-			192,
-			true,
-			lorem
-		);
-		addBookToLibrary(
-			"The Princess Bride",
-			"William Goldman",
-			429,
-			false,
-			lorem
-		);
-		addBookToLibrary(
-			"2001: A Space Odyssey",
-			"Arthur C. Clark",
-			297,
-			true,
-			lorem
-		);
-		addBookToLibrary(
-			"Foundation", 
-			"Issac Asimov", 
-			244, 
-			false, 
-			lorem
-		);
-		addBookToLibrary(
-			"A Game of Thrones",
-			"George R.R. Martin",
-			819,
-			false,
-			lorem
-		);
-		addBookToLibrary(
-			"Red Mars", 
-			"Kim Stanley Robinson", 
-			572, 
-			true, 
-			lorem
-		);
-		addBookToLibrary(
-			"Frankenstein", 
-			"Mary Shelley", 
-			260, 
-			true, 
-			lorem
-		);
+		addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, "Want to Read", lorem);
+		addBookToLibrary("1984", "George Orwell", 328, "Read", lorem);
+		addBookToLibrary("The War of the Worlds", "H.G. Wells", 192, "Read", lorem);
+		addBookToLibrary("The Princess Bride", "William Goldman", 429, "Want to Read", lorem);
+		addBookToLibrary("2001: A Space Odyssey", "Arthur C. Clark", 297, "Read", lorem);
+		addBookToLibrary("Foundation", "Issac Asimov", 244, "Want to Read", lorem);
+		addBookToLibrary("A Game of Thrones", "George R.R. Martin", 819, "Want to Read", lorem);
+		addBookToLibrary("Red Mars", "Kim Stanley Robinson", 572, "Read", lorem);
+		addBookToLibrary("Frankenstein", "Mary Shelley", 260, "Read", lorem);
+
 		saveLibrary(); // Save initial books to localStorage
 	}
 };
@@ -115,9 +62,9 @@ const loadLibrary = () => {
 const bookCardsContainer = document.querySelector(".book-cards");
 
 const displayBooks = () => {
-	bookCardsContainer.innerHTML = "";
+	bookCardsContainer.innerHTML = ""; // Clear current display
 
-	myLibrary.forEach((book, index) => {
+	myLibrary.forEach((book) => {
 		const bookCard = document.createElement("div");
 		bookCard.classList.add("card");
 
@@ -125,7 +72,7 @@ const displayBooks = () => {
 		bookTitle.textContent = book.title;
 
 		const bookAuthor = document.createElement("h4");
-		bookAuthor.textContent = `${book.author}`;
+		bookAuthor.textContent = `By ${book.author}`;
 
 		const bookDescription = document.createElement("p");
 		bookDescription.textContent = `${book.description}`;
@@ -154,15 +101,14 @@ const displayBooks = () => {
 			const option = document.createElement("option");
 			option.value = status;
 			option.textContent = status;
-			if (status === (book.isRead ? "Read" : "Not Yet Read")) {
+			if (status === book.currentStatus) {
 				option.selected = true;
 			}
 			statusDropdown.appendChild(option);
 		});
 
 		statusDropdown.addEventListener("change", (e) => {
-			const selectedStatus = e.target.value;
-			book.isRead = selectedStatus === "Read";
+			book.currentStatus = e.target.value;
 			saveLibrary();
 		});
 
@@ -230,6 +176,9 @@ const addNewBook = () => {
 	const isReadLabel = document.createElement("label");
 	isReadLabel.textContent = "Status";
 
+	const newBookStatusContainer = document.createElement("div");
+	newBookStatusContainer.classList.add("new-book-status-container");
+
 	const statusDropdown = document.createElement("select");
 	statusDropdown.setAttribute("name", "isRead");
 	statusDropdown.setAttribute("required", true);
@@ -242,6 +191,8 @@ const addNewBook = () => {
 		option.textContent = status;
 		statusDropdown.appendChild(option);
 	});
+
+	newBookStatusContainer.appendChild(statusDropdown);
 
 	const submitBookBtn = document.createElement("button");
 	submitBookBtn.textContent = "Add Book";
@@ -261,7 +212,7 @@ const addNewBook = () => {
 	userInput.appendChild(pagesLabel);
 	userInput.appendChild(pagesInput);
 	userInput.appendChild(isReadLabel);
-	userInput.appendChild(statusDropdown);
+	userInput.appendChild(newBookStatusContainer);
 	userInput.appendChild(submitBookBtn);
 	userInput.appendChild(errorMessage);
 
@@ -283,32 +234,32 @@ const addNewBook = () => {
 
 	submitBookBtn.addEventListener("click", (e) => {
 		e.preventDefault();
-	
+
 		const title = titleInput.value;
 		const author = authorInput.value;
 		const pages = pagesInput.value;
 		const description = descriptionInput.value.trim();
-		const isRead = statusDropdown.value;
-	
-		if (!title || !author || !pages || !isRead || !description) {
+		const selectedStatus = statusDropdown.value;
+
+		if (!title || !author || !pages || !selectedStatus || !description) {
 			errorMessage.textContent = "All fields are required.";
 			errorMessage.style.display = "block";
 			return;
 		}
-	
-		addBookToLibrary(title, author, parseInt(pages), isRead, description);
+
+		addBookToLibrary(title, author, parseInt(pages), selectedStatus, description);
 		saveLibrary();
 		displayBooks();
-	
+
 		titleInput.value = "";
 		authorInput.value = "";
 		pagesInput.value = "";
 		descriptionInput.value = "";
 		statusDropdown.value = statuses[0];
 		errorMessage.style.display = "none";
-	
+
 		closeModal();
-	});	
+	});
 
 	const newBookButton = document.getElementById("new-book-button");
 	newBookButton.addEventListener("click", openModal);

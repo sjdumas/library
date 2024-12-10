@@ -52,15 +52,15 @@ h6 {
 }
 
 h1 {
-	font-size: 1.5rem;
+	font-size: 1.6rem;
 }
 
 h2 {
-	font-size: 1.25rem;
+	font-size: 1.5rem;
 }
 
 h3 {
-	font-size: 1.45rem;
+	font-size: 1.4rem;
 }
 
 h4 {
@@ -139,7 +139,7 @@ button {
 	cursor: pointer;
 	font-weight: 500;
 	font-size: var(--main-font-size);
-	padding: 15px 25px;
+	padding: 15px 20px;
 	border: 0;
 	color: var(--simply-white);
 	background-color: var(--primary-color);
@@ -151,11 +151,11 @@ button:hover {
 }
 
 .sidebar-container {
-	padding: 2.5rem 3rem;
+	padding: 3.8rem 5rem;
 }
 
 .content-container {
-	padding: 2.5rem 5.5rem;
+	padding: 3rem 5.5rem;
 }
 
 .card-container {
@@ -181,6 +181,7 @@ button:hover {
 
 .sidebar {
 	background-color: var(--sidebar-bg-color);
+	border-right: 1px solid var(--card-border-color);
 }
 
 .main-section {
@@ -188,11 +189,11 @@ button:hover {
 }
 
 .user-info {
-	padding: 0 0 2rem;
+    padding: 0 0 1.2rem;
 }
 
 .user-info > h2 {
-	padding-top: 1.5rem;
+	padding-top: 2.5rem;
 	padding-bottom: var(--one-rem-padding);
 }
 
@@ -204,7 +205,7 @@ button:hover {
 
 .about,
 .socials {
-	padding: 2rem 0;
+    padding: 1.2rem 0;
 }
 
 .description > h1 {
@@ -220,7 +221,7 @@ button:hover {
 .lead {
 	font-weight: 500;
 	font-size: 1.125rem;
-	color: var(--body-font-color);
+	color: var(--dark-color);
 }
 
 .social-icons {
@@ -235,7 +236,7 @@ button:hover {
 }
 
 .new-book-form {
-	padding: 0.5rem;
+	padding: 0.4rem;
 }
 
 .new-book-form > h2 {
@@ -251,6 +252,20 @@ button:hover {
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
+	appearance: none;
+    cursor: pointer;
+}
+
+.new-book-status-container::after {
+    display: inline-block;
+    position: absolute;
+    pointer-events: none;
+    color: inherit;
+    top: 526px;
+    right: 31px;
+    font-family: 'Material Symbols Outlined';
+    font-size: 1.1rem;
+    content: "\e5cf";
 }
 
 .new-book-form button {
@@ -301,7 +316,7 @@ button:hover {
 	font-size: var(--main-font-size);
 	line-height: 1.5;
 	color: var(--body-font-color);
-	margin-top: 0.5rem;
+    margin-top: 0.8rem;
 }
 
 .card p:last-of-type {
@@ -312,10 +327,12 @@ button:hover {
 	cursor: pointer;
 	font-size: var(--main-font-size);
 	font-weight: 500;
+	padding: 8px 0 8px 0;
 	width: auto;
 	padding: 0;
 	border: 0;
-	background-color: transparent;
+	background-color: var(--simply-white);
+    color: var(--dark-color);
 }
 
 .card select:focus-visible {
@@ -342,7 +359,7 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	width: 90%;
-	max-width: 600px;
+	max-width: 450px;
 	transform: translate(-50%, -50%);
 	background-color: var(--simply-white);
 	padding: 1rem;
@@ -351,6 +368,10 @@ button:hover {
 	z-index: 1001;
 	overflow-y: auto; /* Add scroll for overflow content */
 	max-height: 90%; /* Prevent modal from exceeding the viewport */
+}
+
+.modal h2 {
+	text-align: center;
 }
 
 .overlay {
@@ -383,11 +404,11 @@ button:hover {
 	}
 
 	.sidebar-container {
-		padding: 1.5rem;
+		padding: 3rem;
 	}
 
 	.main-section {
-		padding: 1.5rem;
+		padding: 1.5rem 1.5rem 0 1.5rem;
 	}
 
 	.content-container {
@@ -421,8 +442,9 @@ button:hover {
 
 	.sidebar-container {
 		order: -1; /* Moves sidebar to the top */
-		padding: 1.75rem;
+        padding: 3.3rem;
 		background-color: var(--sidebar-bg-color);
+		border-bottom: 1px solid var(--card-border-color);
 	}
 
 	.card-container,
@@ -432,7 +454,7 @@ button:hover {
 
 	.main-section {
 		order: 0; /* Main content displays after the sidebar */
-		padding: 1.75rem;
+		padding: 1.75rem 1.75rem 0 1.75rem;
 	}
 
 	.header {
@@ -461,10 +483,13 @@ button:hover {
 		padding: 1.75rem 0;
 	}
 
-	.sidebar-container,
 	.card-container {
 		padding: 1.25rem;
 	}
+
+	.sidebar-container {
+        padding: 3rem;
+    }
 
 	.header {
 		align-items: center;
@@ -482,7 +507,6 @@ button:hover {
 
 	.modal h2 {
 		font-size: 1.2rem;
-		text-align: center;
 	}
 
 	.modal input,
