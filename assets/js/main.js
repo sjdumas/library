@@ -162,7 +162,7 @@ const addNewBook = () => {
 
 	const descriptionInput = document.createElement("textarea");
 	descriptionInput.setAttribute("placeholder", "Enter a description");
-	descriptionInput.setAttribute("rows", "3");
+	descriptionInput.setAttribute("rows", "2");
 	descriptionInput.setAttribute("required", true);
 
 	const pagesLabel = document.createElement("label");

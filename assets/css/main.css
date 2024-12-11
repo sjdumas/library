@@ -139,7 +139,7 @@ button {
 	cursor: pointer;
 	font-weight: 500;
 	font-size: var(--main-font-size);
-	padding: 15px 20px;
+	padding: 12px 20px;
 	border: 0;
 	color: var(--simply-white);
 	background-color: var(--primary-color);
@@ -248,11 +248,12 @@ button:hover {
 	width: 100%;
 	padding: 12px 8px;
 	font-size: var(--main-font-size);
-	border: 1px solid var(--input-border-color);
+	border: 0;
+    outline: 1px solid var(--input-border-color);
+	border-right: 8px solid transparent;
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
-	appearance: none;
     cursor: pointer;
 }
 
@@ -327,7 +328,7 @@ button:hover {
 	cursor: pointer;
 	font-size: var(--main-font-size);
 	font-weight: 500;
-	padding: 8px 0 8px 0;
+	padding: 8px 0 !important;
 	width: auto;
 	padding: 0;
 	border: 0;

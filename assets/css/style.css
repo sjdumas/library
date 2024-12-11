@@ -261,13 +261,15 @@ button:hover {
 
 .card select {
 	width: 100%;
-	padding: 10px 15px;
-	font-size: 0.95rem;
-	border: 1px solid var(--input-border-color);
+	padding: 12px 8px;
+	font-size: var(--main-font-size);
+	border: 0;
+    outline: 1px solid var(--input-border-color);
+	border-right: 8px solid transparent;
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
-	appearance: none;
-	cursor: pointer;
+	margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .status-container {
@@ -306,7 +308,7 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	width: 90%;
-	max-width: 600px;
+	max-width: 400px;
 	transform: translate(-50%, -50%);
 	background-color: var(--simply-white);
 	padding: 1rem;
@@ -315,6 +317,10 @@ button:hover {
 	z-index: 1001;
 	overflow-y: auto; /* Add scroll for overflow content */
 	max-height: 90%; /* Prevent modal from exceeding the viewport */
+}
+
+.modal h2 {
+    text-align: center;
 }
 
 .overlay {
@@ -338,13 +344,14 @@ button:hover {
 .new-book-form select {
 	width: 100%;
 	padding: 12px 8px;
-	font-size: 1rem;
-	border: 1px solid var(--input-border-color);
+	font-size: var(--main-font-size);
+	border: 0;
+    outline: 1px solid var(--input-border-color);
+	border-right: 8px solid transparent;
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
-	appearance: none;
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .new-book-status-container::after {
@@ -422,7 +429,7 @@ footer h4 {
 }
 
 /* Responsive mode for tablets and smartphones */
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1060px) {
 	.book-cards {
 		grid-template-columns: 1fr 1fr;
 		gap: 35px;
@@ -450,7 +457,7 @@ footer h4 {
 	}
 
 	.header h1 {
-		font-size: 1.25rem;
+		font-size: 1.4rem;
 	}
 
 	.card {
@@ -483,11 +490,11 @@ footer h4 {
 
 	.card {
 		width: 100%;
-		padding: 1rem;
+		padding: 1.5rem;
 	}
 
 	.card h3 {
-		font-size: 1rem;
+		font-size: 1.3rem;
 	}
 
 	.status-container {
@@ -521,7 +528,6 @@ footer h4 {
 
 	.modal h2 {
 		font-size: 1.2rem;
-		text-align: center;
 	}
 
 	.modal input,
