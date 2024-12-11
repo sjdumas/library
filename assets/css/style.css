@@ -279,17 +279,6 @@ button:hover {
 	margin-top: 1rem;
 }
 
-.status-container::after {
-	display: inline-block;
-	position: absolute;
-	pointer-events: none;
-	color: inherit;
-	right: 45px;
-	font-family: "Material Symbols Outlined";
-	font-size: 1.1rem;
-	content: "\e5cf";
-}
-
 .remove-book-icon {
 	position: absolute;
 	top: 15px;
