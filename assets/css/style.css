@@ -354,18 +354,6 @@ button:hover {
 	cursor: pointer;
 }
 
-.new-book-status-container::after {
-	display: inline-block;
-	position: absolute;
-	pointer-events: none;
-	color: inherit;
-	bottom: 105px;
-	right: 33px;
-	font-family: "Material Symbols Outlined";
-	font-size: 1.1rem;
-	content: "\e5cf";
-}
-
 .new-book-form button {
 	width: 100%;
 	margin-top: 20px;
