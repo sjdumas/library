@@ -264,20 +264,12 @@ button:hover {
 	padding: 12px 8px;
 	font-size: var(--main-font-size);
 	border: 0;
-<<<<<<< HEAD
 	outline: 1px solid var(--input-border-color);
-=======
-    outline: 1px solid var(--input-border-color);
->>>>>>> redesign-layout
 	border-right: 8px solid transparent;
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
-<<<<<<< HEAD
 	cursor: pointer;
-=======
-    cursor: pointer;
->>>>>>> redesign-layout
 }
 
 .status-container {
@@ -317,11 +309,7 @@ button:hover {
 }
 
 .modal h2 {
-<<<<<<< HEAD
 	text-align: center;
-=======
-    text-align: center;
->>>>>>> redesign-layout
 }
 
 .overlay {
@@ -347,20 +335,12 @@ button:hover {
 	padding: 12px 8px;
 	font-size: var(--main-font-size);
 	border: 0;
-<<<<<<< HEAD
 	outline: 1px solid var(--input-border-color);
-=======
-    outline: 1px solid var(--input-border-color);
->>>>>>> redesign-layout
 	border-right: 8px solid transparent;
 	border-radius: var(--all-border-radii);
 	background-color: var(--input-bg-color);
 	margin-bottom: 10px;
-<<<<<<< HEAD
 	cursor: pointer;
-=======
-    cursor: pointer;
->>>>>>> redesign-layout
 }
 
 .new-book-form button {
