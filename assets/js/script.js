@@ -1,13 +1,12 @@
 const myLibrary = [];
 
-function Book(title, author, pages, status) {
-	this.title = title;
-	this.author = author;
-	this.pages = pages;
-	this.status = status || "Want to Read"; // Default to "Want to Read" if no status is provided
-	this.info = function () {
-		return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`;
-	};
+class Book {
+	constructor(title, author, pages, status) {
+		this.title = title;
+		this.author = author;
+		this.pages = pages;
+		this.status = status || "Want to Read"; // Default to "Want to Read" if no status is provided
+	}
 }
 
 const addBookToLibrary = (title, author, pages, status) => {
